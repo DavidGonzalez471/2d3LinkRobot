@@ -40,10 +40,13 @@ def background():
     ax.set_aspect( 1 )
     
     
-   ax.plot([0,0],[0,150],
+    ax.plot([0,0],[0,150],
         [0,0], [150,250],
         [0,0], [250,300] )
+
     start_point = [0,300]
+    
     background()
+    
 
     plt.show()
