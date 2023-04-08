@@ -1,8 +1,9 @@
 import numpy as np 
-import matplotlib.pyplot as plt
-import matplotlib.animations as animations
+import matplotlib.pyplot as plt 
+import matplotlib.animation as animation
 import math
 import pandas as pd
+import Table as tb
 
 
 #Link Length
@@ -14,14 +15,11 @@ main_target = [0, 0]
 target = [0, 0]
 hand=[0,300]
 
-table_vals=[]
-
 
 # Create figure to plot
 fig = plt.figure(1) 
 ax = fig.add_subplot(1,1,1)
-#create figure for the table 
-fig2,ax2 = plt.subplots(figsize=(10,10))
+
 
 
 #create background with a grid at a spacing of every 20 units.
@@ -37,16 +35,27 @@ def background():
     ax.axis([-300,300, 0, 300])
     ax.grid(which='major', alpha= 1)
     ax.plot(a, b)
-    ax.set_aspect( 1 )
-    
-    
-    ax.plot([0,0],[0,150],
-        [0,0], [150,250],
-        [0,0], [250,300] )
+    ax.set_aspect(1)
 
+    
+
+
+def main():
+    #event for mouseclick, setting limits of the graph and creating the starting position.
+    fig.canvas.mpl_connect('button_press_event', onclick)
+    ax.set_xlim(-300, 300)
+    ax.set_ylim(0, 300)
+
+    # Forward Kinematics
+    P = FK(angle, link)
+
+    ax.plot([0,0],[0,150],
+            [0,0], [150,250],
+            [0,0], [250,300] )
     start_point = [0,300]
-    
     background()
-    
 
     plt.show()
+
+if __name__ == "__main__":
+    main()
