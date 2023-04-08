@@ -37,6 +37,12 @@ def background():
     ax.plot(a, b)
     ax.set_aspect(1)
 
+'''pythhagorean theorem
+if you have two sides available you can use this to calculate the other side.'''
+def pythag(a,b,c):
+    if not c:
+        c = math.sqrt(a**2 + b**2)
+        return c
     
 
 
