@@ -44,7 +44,12 @@ def pythag(a,b,c):
         c = math.sqrt(a**2 + b**2)
         return c
     
-
+#indicating the tilt of the links 
+def movement(theta):
+    m = np.array([[math.cos(theta), - math.sin(theta), 0],
+                   [math.sin(theta), math.cos(theta), 0],
+                   [0, 0, 1]])
+    return m
 
 def main():
     #event for mouseclick, setting limits of the graph and creating the starting position.
