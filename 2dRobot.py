@@ -48,6 +48,25 @@ def movement(theta):
                    [math.sin(theta), math.cos(theta), 0],
                    [0, 0, 1]])
     return m
+#indicating the movement of the links
+def translate(dx, dy):
+    t = np.array([[1, 0, dx],
+                  [0, 1, dy],
+                  [0, 0, 1]])
+    return t
+
+# Forward Kinematics
+# Input initial angles and length of links
+# Output positions each points
+def FK(angle, link):
+    
+    P = []
+    P.append(np.eye(3))
+    for i in range(len(link)):
+        M = movement(angle[i]/180*math.pi)
+        T = translate(link[i], 0)
+        P.append(P[-1].dot(M).dot(T))
+    return P
 
 def main():
     #event for mouseclick, setting limits of the graph and creating the starting position.
