@@ -115,7 +115,33 @@ def IK(target, angle, link, max_iter = 1000, err_min = 0.1):
 
             if sin_rot_ang < 0.0:
                 rot_ang = -rot_ang
-
+                               
+            # Update current joint angle values
+            angle[i] = angle[i] + (rot_ang)    
+            
+            if angle[i] >= 360:
+                angle[i] = angle[i] - 360
+            if angle[i] < 0:
+                angle[i] = 360 + angle[i]
+        
+        if solved:
+            AB_angle_diff = abs(angle[0] - 90)
+            if angle[1] > 180:
+                BC_angle_diff = (abs(angle[1]-360))
+                BC_angle = 180-BC_angle_diff
+            else:
+                BC_angle_diff = (abs(angle[1]))
+                BC_angle = (abs(angle[1]))
+            if angle[2] > 180:
+                CD_angle_diff = (abs(angle[2]-360))
+                CD_angle = 180-BC_angle_diff
+            else:
+                CD_angle_diff = (abs(angle[2]))
+                CD_angle = (abs(angle[2]))
+            Max_angle_diff = max(AB_angle_diff, BC_angle_diff, CD_angle_diff)
+            AB_angle = angle[0]
+            break
+    return angle, solved, loop
 
 def main():
     #event for mouseclick, setting limits of the graph and creating the starting position.
