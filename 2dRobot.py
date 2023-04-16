@@ -19,7 +19,6 @@ fig = plt.figure(1)
 ax = fig.add_subplot(1,1,1)
 
 
-
 #create background with a grid at a spacing of every 20 units.
 def background():
     major_ticks = np.arange(-300, 300, 20)
@@ -91,8 +90,6 @@ def IK(target, angle, link, max_iter = 1000, err_min = 0.1):
                     angle_temp = angle_temp + (abs(angle[i]-360))
                 else:
                     angle_temp = angle_temp + (abs(angle[i]))
-    
-
             
             # Calculate distance joint and end effector
             # P[i] is position of current joint
