@@ -67,6 +67,55 @@ def FK(angle, link):
         T = translate(link[i], 0)
         P.append(P[-1].dot(M).dot(T))
     return P
+'''Inverse Kinematic function to guide the end effector to the target point, the inverse kinematic function finds the angle of the joints
+    and iteratively finds the optimal solution'''
+def IK(target, angle, link, max_iter = 1000, err_min = 0.1):
+    global Bpos, AB_angle, AB_angle_diff, Cpos, BC_angle, BC_angle_diff, Dpos, CD_angle, CD_angle_diff, Max_angle_diff
+    solved = False
+    max_angle =10
+    angle_temp = 0
+    err_end_to_target = math.inf
+    
+    for loop in range(max_iter):
+        for i in range(len(link)-1, -1, -1):
+            P = FK(angle, link)
+            end_to_target = target - P[-1][:2, 2]
+            err_end_to_target = math.sqrt(end_to_target[0] ** 2 + end_to_target[1] ** 2)
+
+            if err_end_to_target < err_min:
+                if i == 0:
+                    angle_temp += abs(angle[i] - 90)
+                    if angle_temp < max_angle:
+                        solved = True
+                if angle[i] > 180:
+                    angle_temp = angle_temp + (abs(angle[i]-360))
+                else:
+                    angle_temp = angle_temp + (abs(angle[i]))
+    
+
+            
+            # Calculate distance joint and end effector
+            # P[i] is position of current joint
+            # P[-1] is position of end effector
+            cur_to_end = P[-1][:2, 2] - P[i][:2, 2]
+            cur_to_end_mag = pythag(cur_to_end[0], cur_to_end[1], None)
+            cur_to_target = target - P[i][:2, 2]
+            cur_to_target_mag = pythag(cur_to_target[0], cur_to_target[1], None)
+
+            end_target_mag = cur_to_end_mag * cur_to_target_mag
+
+            if end_target_mag <= 0.0001:    
+                cos_rot_ang = 1
+                sin_rot_ang = 0
+            else:
+                cos_rot_ang = (cur_to_end[0] * cur_to_target[0] + cur_to_end[1] * cur_to_target[1]) / end_target_mag
+                sin_rot_ang = (cur_to_end[0] * cur_to_target[1] - cur_to_end[1] * cur_to_target[0]) / end_target_mag
+
+            rot_ang = np.arccos(max(-1, min(1,cos_rot_ang)))
+
+            if sin_rot_ang < 0.0:
+                rot_ang = -rot_ang
+
 
 def main():
     #event for mouseclick, setting limits of the graph and creating the starting position.
