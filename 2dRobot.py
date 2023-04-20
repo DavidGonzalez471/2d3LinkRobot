@@ -211,22 +211,9 @@ def onclick(event):
             if i == 2:
                 Dpos = ([end_point[0, 2], end_point[1,2]])
 
-        table_vals.append([Bpos, AB_angle, AB_angle_diff, Cpos, BC_angle, BC_angle_diff, Dpos, CD_angle, CD_angle_diff, Max_angle_diff])
         fig.canvas.draw()
 
         hand = P[-1][:2,2]
-    #table to show the position, angle difference, and true angle values.
-    col_labels = ['B pos', 'A-B ∡', 'Δ A-B ∡', 'C pos', 'B-C ∡', 'Δ B-C ∡', 'D pos', 'C-D ∡', 'Δ C-D ∡', 'Max Δ ∡']
-    row_labels = ['2', '3', '4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21']
-    df = pd.DataFrame(table_vals, columns=col_labels)
-    ax2.axis('tight')
-    ax.axis('off')
-
-    table = ax2.table(cellText= df.values, colLabels=df.columns, rowLabels=row_labels, loc= 'center')
-    table.auto_set_column_width(col=list(range(len(df.columns))))
-    table.set_fontsize(6)
-    table.scale(1,1)
-    fig2.canvas.draw()
 
     
 
