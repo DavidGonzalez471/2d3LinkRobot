@@ -149,7 +149,9 @@ def IK(target, angle, link, max_iter = 1000, err_min = 0.1):
 
 #function that takes place when the mouse button is clicked on the graph.
 def onclick(event):
-    global target, main_target, link, angle, ax, hand, Bpos, AB_angle, AB_angle_diff, Cpos, BC_angle, BC_angle_diff, Dpos, CD_angle, CD_angle_diff, Max_angle_diff
+    global target, main_target, link, angle, ax, hand, 
+    Bpos, AB_angle, AB_angle_diff, Cpos, BC_angle, BC_angle_diff, Dpos, CD_angle, CD_angle_diff, Max_angle_diff
+    
     table_vals= []
     Bpos=[0,0]
     AB_angle = 0
